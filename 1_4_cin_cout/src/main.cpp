@@ -4,7 +4,8 @@ int main(int argv, char *argc[])
 {
     using namespace std;
 
-    // 자동 줄맞춤이 된다는 거
+    // auto lining by /t
+    // this will be usefull for multiple line print
 
     cout << "qwerty"
          << "\t"
