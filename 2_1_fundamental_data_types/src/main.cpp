@@ -1,7 +1,7 @@
 #include <iostream>
 #include <bitset>
 
-int main() { 
+int main() {
     bool bValue = true;
     char chValue = 65;
     float fValue = 3.141592f;
@@ -13,8 +13,10 @@ int main() {
 
     // copy initialization
     int i = 3.14;
+
     // direct initialization
     int a(3.14); // occurs warning
+    
     // uniform initialization
     // int b{1.57}; // occurs error
 
