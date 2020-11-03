@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.0)
 
-project(fixed_width_integer)
+project(void)
 set(CMAKE_CXX_COMPILER g++)
 set(SOURCES src/main.cpp )
 #set(CMAKE_BUILD_TYPE Release)
