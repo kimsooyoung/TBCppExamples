@@ -10,7 +10,6 @@ namespace a
 namespace b
 {
     int my_var(20);
-
 } // namespace a
 
 int main()
