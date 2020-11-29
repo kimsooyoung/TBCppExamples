@@ -1,15 +1,14 @@
 #include <iostream>
-#include <cstdlib>
 
-int main() {
-    
-    std::cout << "I Love You" << std::endl;
+int main()
+{
+    {
+        int x;
+        std::cin >> x;
 
-    exit(0);
-
-    // ...
-
-    std::cout << "Was Fake :D" << std::endl;
+        if (x > 10)
+            std::cout << x << " is greater than 10" << std::endl;
+    }
 
     return 0;
 }
