@@ -72,5 +72,17 @@ int main(){
         }
     }
 
+    {
+        int count = 100;
+
+        while(count > 0){
+
+            if (count % 5 == 3)
+                std::cout << count << " Mod : 3" << std::endl;
+            
+            --count;
+        }
+    }
+
     return 0;
 }
