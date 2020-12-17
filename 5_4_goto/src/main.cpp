@@ -20,7 +20,7 @@ int main(){
 
     {
         // Error example
-        goto skip;
+        goto skip; // skip must located before goto expression
         int x;
 
     skip:

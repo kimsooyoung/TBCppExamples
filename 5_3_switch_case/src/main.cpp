@@ -50,9 +50,7 @@ int main() {
     std::cout << "Type number, It'll switched to Colors : ";
     std::cin >> color_input;
 
-
     printColorName(static_cast<Colors>(color_input));
-
 
     {
         switch (1)

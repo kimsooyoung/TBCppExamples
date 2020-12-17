@@ -20,7 +20,7 @@ int main()
 
         // numeric promotion
         float a = 1.0f;
-        double d = a; 
+        double d = a;
 
         // numeric conversion
         int i = 300000;
