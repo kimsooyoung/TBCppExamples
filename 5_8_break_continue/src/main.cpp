@@ -5,7 +5,8 @@ void breakOrReturn(){
     while (1)
     {
         char ch;
-        cin >> ch;
+        std::cout << "type any char you prefer : ";
+        std::cin >> ch;
 
         if(ch == 'b')
             break;
@@ -27,14 +28,20 @@ int main(){
         }
     }
 
+    {
+        breakOrReturn();
+    }
+
     // Endless loop with do-while && continue
     {
         int count = 0;
         do{
-            if(count == 5)
+            if(count == 5){
+                std::cout << "I'm in while loop!!" << std::endl;
                 continue;
+            }
             
-            cout << count << endl;
+            cout << "do-while count : " << count << endl;
             count++;
 
         }while(count < 10) ;
