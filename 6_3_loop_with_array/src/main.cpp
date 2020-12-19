@@ -3,7 +3,7 @@
 using namespace std;
 
 int main(){
-    int scores[] = {11,2,2,33,34,77,64,34,33,80};
+    int scores[] = {11,1,1,23,33,4,7,65,44,20};
     const int score_size = sizeof(scores)/sizeof(int);
     
     float mean = 0;
