@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.0)
 
-project(array)
+project(selection_sort)
 set(CMAKE_CXX_STANDARD 14)
 set(CMAKE_CXX_COMPILER g++)
 set(SOURCES src/main.cpp )
