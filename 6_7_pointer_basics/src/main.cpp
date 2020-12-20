@@ -1,38 +1,62 @@
-#include <iostream> 
-#include <cstring>
+#include <iostream>
 
 using namespace std;
 
 int main(){
     {
-        const char string[] = "My_String";
-        int string_size = sizeof(string)/sizeof(string[0]);
+        int x = 5;
+        double d = 123;
 
-        for (auto i = 0; i < string_size; i++){
-            cout << string[i] << endl;
-        }
+        int *ptr_x = &x;
+        double *ptr_d = &d;
+
+        cout << (size_t)&x << endl;
+        cout << (size_t)ptr_x <<endl;
+
+        cout << (size_t)&d << endl;
+        cout << (size_t)ptr_d <<endl;
     }
 
+    // typeid
     {
-        const char source[] = "Copy This!";
-        char dest[50];
+        int x = 4;
+        int *ptr_x = &x;
 
-        strcpy(dest, source);
-
-        cout << "dest : " << dest << endl;
-        cout << "source : " << source << endl;
-
+        cout << typeid(ptr_x).name() << endl;
     }
 
+    // sizeof pointer
     {
-        // Error Case
-        const char source[] = "This is Error Test";
-        char dest[5];
+        int x = 4;
+        double d = 123;
 
-        strcpy(dest, source);
+        int *ptr_x = &x;
+        double *ptr_d = &d;
 
-        cout << "dest : " << dest << endl;
-        cout << "source : " << source << endl;
+        cout << "sizeof(x) : " << sizeof(x) << endl;
+        cout << "sizeof(d) : " << sizeof(d) << endl;
+        
+        cout << "sizeof(&x) : " << sizeof(&x) << endl;
+        cout << "sizeof(&d) : " << sizeof(&d) << endl;
+        
+        cout << "sizeof(ptr_x) : " << sizeof(ptr_x) << endl;
+        cout << "sizeof(ptr_d) : " << sizeof(ptr_d) << endl;
+        
+        cout << "sizeof(&ptr_x) : " << sizeof(&ptr_x) << endl;
+        cout << "sizeof(&ptr_x) : " << sizeof(&ptr_x) << endl;
+    }
+
+    // ERROR Case
+    {
+        int x = 4;
+        double d = 234;
+        
+        int *ptr_x;
+        double *ptr_d;
+
+        // Garbage output
+        cout << *ptr_x << endl;
+        cout << *ptr_d << endl;
     }
 
     return 0;
