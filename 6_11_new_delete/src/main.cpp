@@ -1,39 +1,70 @@
+#define MEMORY_LEAK_EXAMPLE 0
+
+
 #include <iostream>
 
 using namespace std;
 
-const char * getName(){
-    return "Hello Hello";
-}
-
 int main(){
 
-    // It's Exception Case
-    // `cout` allows to show literal pointer directly
+    // new keyword basic usage
     {
-        const char *name = "Jack Jack";
-        const char *name2 = "Jack Jack";
-        const char *name3 = "Jack jack";
+        int *ptr = nullptr;
+        
+        ptr = new int;
+        *ptr = 3;
 
-        cout << name << " " << (uintptr_t)(&name) << endl;
-        cout << name2 << " " << (uintptr_t)(&name2) << endl;
-        cout << name3 << " " << (uintptr_t)(&name3) << endl;
+        // same with this 
+        // int *ptr = new int{3};
 
+        cout << "ptr : " << ptr << endl;
+        cout << "*ptr : " << *ptr << endl;
+
+        delete ptr;
     }
 
-    // const char* type function return usage
+    // Error case
     {
-        cout << getName() << endl;
-        const char *name = getName();
+        int *ptr = new int {3};
+        
+        cout << ptr << " " << *ptr << endl;
+
+        delete ptr;
+
+        cout << ptr << " " << *ptr << endl;
+
+        // in order to prevent this...
+        ptr = nullptr;
+
+        if(ptr != nullptr)
+            cout << ptr << " " << *ptr << endl;
     }
 
-    // Error Case
+    // nothrow
+    // sometimes, new fail when memory fulls
     {
-        char c = 'Q';
+        int *ptr = new (std::nothrow) int{7};
 
-        // Compiler misunderstood &c as const char*
-        cout << &c << endl;
+        if(ptr){
+            cout << ptr << endl;
+            cout << *ptr << endl;
+        }
+        else{
+            cout << "Could not allocate memory" << endl;
+        }
     }
+
+    // memory leak
+#if MEMORY_LEAK_EXAMPLE == 1
+    {
+        while(1){
+            int *ptr = new int;
+            cout << ptr <<endl;
+
+            // delete ptr;
+        }
+    }
+#endif
 
     return 0;
 }
