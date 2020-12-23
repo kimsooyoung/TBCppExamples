@@ -6,4 +6,4 @@ set(SOURCES src/main.cpp src/something.cpp )
 #set(CMAKE_BUILD_TYPE Release)
 message("build type: " ${CMAKE_BUILD_TYPE})
 add_executable(${PROJECT_NAME} ${SOURCES})
-
+target_compile_features(cpp-snippets PRIVATE cxx_std_17)
