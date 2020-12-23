@@ -1,56 +1,50 @@
-#include <iostream> 
-#include <typeinfo>
+#include <iostream>
 
 using namespace std;
 
-enum Type{
-    INT,
-    FLOAT,
-    CHAR,
-};
-
 int main(){
 
+    // Pointer Pointer
     {
-        int     i = 5;
-        float   f = 1.2;
-        char    c = 'c';
+        int *ptr = nullptr;
+        int **ptrptr = nullptr;
 
-        void *ptr_void = nullptr;
+        int val = 5;
 
-        // void ptr can point any type
-        ptr_void = &i;
-        ptr_void = &c;
-        ptr_void = &f;
+        ptr = &val;
+        ptrptr = &ptr;
 
-        // but... cannot do de-refencing
-        // cout << *ptr_void << endl;
-
-        // also cannot do pointer arithmetic
-        // cout << *(ptr_void + 1) << endl;
-
-        // Force Cast when you have to use them
-        cout << &f << " " << ptr_void << endl;
-        cout << f << " " << *static_cast<float*>(ptr_void) << endl;
+        cout << ptr << " " << *ptr << " " << &ptr << endl;
+        cout << ptrptr << " " << *ptrptr << " " << &ptrptr << endl;
+        cout << *(*ptrptr) << endl;
     }
 
-    // Force Casing Example
+    // 2 Dimensinal Array with Pointer
     {
-        int     i = 5;
-        float   f = 112.3;
-        char    c = 'c';
+        int arr_matrix[][5] = {
+            {1,2,3,4,5},
+            {6,7,8,9,10},
+            {11,12,13,14,15}
+        };
 
-        void *ptr_void = &f;
-        Type type = FLOAT;
+        const int row = 3;
+        const int col = 5;
 
-        if(type == FLOAT)
-            cout << *static_cast<float*>(ptr_void) << endl;
-        else if (type == INT)
-            cout << *static_cast<int*>(ptr_void) << endl;
-        else if (type == CHAR)
-            cout << *static_cast<char*>(ptr_void) << endl;
-        else
-            cout << "Something Wrong" << endl;
+        int *row_1 = new int [col]{1,2,3,4,5};
+        int *row_2 = new int [col] {6,7,8,9,10};
+        int *row_3 = new int [col] {11,12,13,14,15};
+
+        int **ptr_matrix = new int*[row] {row_1, row_2, row_3};
+
+        for (auto i = 0; i < row; i++)
+            for (auto j = 0; j < col; j++)
+                cout << i << " " << j << " " << ptr_matrix[i][j] << endl;
+
+        // !! Delete with for loop !!
+        for (auto i = 0; i < row; i++)
+            delete[] ptr_matrix[i];
+        
+        delete[] ptr_matrix;
     }
 
     return 0;
