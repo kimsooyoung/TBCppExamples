@@ -20,7 +20,7 @@ double addVal(double x, double y){
     return x + y;
 }
 
-// How to overrode with different outputs
+// How to overload with different outputs
 int getRandomVal(int &x){}
 double getRandomVal(double &x){}
 

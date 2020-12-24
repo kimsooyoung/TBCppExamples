@@ -2,75 +2,58 @@
 
 using namespace std;
 
+void printMultiVal(int x = 10, int y = 20, int z = 30);
 
-int addInt(int x, int y){
-    return x + y;
+void printVal(const int &x= 0){
+    cout << x << endl;
 }
 
-double addDouble(double x, double y){
-    return x + y;
+void printMultiVal(int x, int y, int z){
+    cout << "x : " << x << endl; 
+    cout << "y : " << y << endl;
+    cout << "z : " << z << endl;
+    cout << "===================" << endl;
 }
 
-// same with
-int addVal(int x, int y){
-    return x + y;
+// string print function overloading
+void printStr(std::string str){
+    cout << "std::string is selected : " << str << endl;
+}
+void printStr(char ch = ' '){
+    cout << "char ch is selected : " << ch << endl;
 }
 
-double addVal(double x, double y){
-    return x + y;
+// Ambiguous case
+void ambigFunc(int x){
+    cout << x << endl;
 }
 
-// How to overrode with different outputs
-int getRandomVal(int &x){}
-double getRandomVal(double &x){}
-
-// Why don't you try this trick?
-typedef double fake_double;
-void fakeVal(double x){}
-// void fakeVal(fake_double x){}
-// Nope, Cannot deceive compiler :/ 
-
-// Caution, Ambiguous Cases
-void printVal(char val){
-    cout << "Char *Value is " << val << endl; 
-} 
-void printVal(const char *val){
-    cout << "Const Char Value is " << val << endl; 
-} 
-void printVal(int val){
-    cout << "Int Value is " << val << endl;
-}
-
-// More Ambiguous Cases
-void printVal(unsigned int val){
-    cout << "Unsigned Int Value is " << val << endl;
-}
-void printVal(float val){
-    cout << "Float Value is " << val << endl;
+void ambigFunc(int x, int y = 10){
+    cout << x << endl;
+    cout << y << endl;
 }
 
 int main(){
 
+
     // Basic Usage
-    // parameters must be decided during compile time
     {
-        cout << "addVal(3,4) : " << addVal(3,4) << endl;
-        cout << "addVal(3.14, 0.01) : " << addVal(3.14, 0.01) << endl;
-        
-        int input;
-        cout << "Get input : ";
-        cin >> input; cin.ignore(32767, '\n');
-        cout << "input : " << addVal(input, input) << endl;
+        printVal();
+        // Multiple default values
+        printMultiVal();
+        printMultiVal(11);
+        printMultiVal(11,22);
+        printMultiVal(11,22,33);
     }
 
-    // Caution, Ambiguous Cases
+    // Function overloading with default parameter
     {
-        printVal(0); // => int 
-        printVal('c'); // => int
-        printVal("C"); // => char *
+        printStr();
+    }
 
-        printVal(0u); // 0 can be treated as int or unsigned int
-        printVal(3.14f); // 3.14 will be treated as double
+    {
+        // Error : call of overloaded ‘ambigFunc(int)’ is ambiguous
+        // ambigFunc(10);
     }
 
     return 0;
