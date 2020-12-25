@@ -1,94 +1,91 @@
 #include <iostream>
-#include <array>
-#include <functional>
+#include <vector>
 
 using namespace std;
 
-int func(){
-    return 4;
+void printStack(const vector<int> &stack) {
+    for (auto &i : stack)
+        cout << i << " ";
+    cout << endl;
 }
-
-int printTwo(){
-    cout << "Two" << " ";
-}
-
-int addOne(int x ){
-    return x + 2;
-}
-
-bool isEven(const int &n){
-    if (n % 2 == 0) return true;
-    else return false;
-}
-
-bool isOdd(const int &n){
-    if (n % 2 == 0) return false;
-    else return true;
-}
-
-typedef bool(*check_func_t)(const int&);
-
-void checkNum(const std::array<int, 5> &arr, check_func_t func = isEven){
-    for (auto &i : arr)
-    {
-        if( func(i) ) cout << "Pass" << endl;
-    }
-}
-
-void checkNum(const std::array<int, 5> &arr, std::function<bool(const int&)> func = isEven){
-    for (auto &i : arr)
-    {
-        if( func(i) ) cout << "Pass" << endl;
-    }
-}
-
 
 int main(){
 
-    // Address of Fuction
+    // resize to larger vector
     {
-        cout << (uintptr_t)func << endl;
-    }
+        std::vector<int> vec {1,2,3,4,5};
 
-    // Function Pointer
-    {
-        int (*fcnptr)() = func;
+        vec.resize(10);
 
-        cout << (uintptr_t)fcnptr << ", " << fcnptr() << endl;
-        fcnptr = printTwo;
-        cout << (uintptr_t)fcnptr << ", " << fcnptr() << endl;
-    
-        // output
-        // 94899170782106, 4
-        // 94899170782117, Two 1870479392 <= what's this?
-    }
-
-    // Function Pointer for paramter using function
-    {
-        int (*fcnptr)(int) = addOne;
-
-        cout << "fcnptr(2) : " << fcnptr(2) << endl;
-    }
-
-    // Example, Odd Even Checker
-    {
-        std::array<int, 5> arr {1,2,3,4,5};
-        checkNum(arr, isEven);
-        cout << endl;
-    }
-
-    // Functional usage - From C++11
-    {
-        std::array<int, 5> arr {1,2,3,4,5};
-        std::function<bool(const int&)> fcnptr = isEven;
         
-        checkNum(arr, fcnptr);
+        for (auto &&i : vec)
+            cout << i << " ";
+        cout << endl;
+        
+        cout << "size : " <<  vec.size() << " capa : " << vec.capacity() << endl;
+    }
 
-        fcnptr = isOdd;
-        cout << "Even to Odd changed" << endl;
+    // resize to shorter vector
+    {
+        std::vector<int> vec {1,2,3,4,5};
 
-        checkNum(arr, fcnptr);
+        vec.resize(2);
+        cout << endl << "resize to 2" << endl;
 
+        for (auto &&i : vec)
+            cout << i << " ";
+        cout << endl;
+        
+        cout << "size : " <<  vec.size() << " capa : " << vec.capacity() << endl;
+        
+        // Runtime Error : 'std::out_of_range'
+        // cout << "vec[4] : " << vec[4] << 
+        //     " vec.at(4) : " <<  vec.at(4) << endl;
+
+        // Let's force it out
+        int *ptr_i = vec.data();
+
+        cout << "ptr_i[4] : " << ptr_i[4] << endl;
+
+    }
+
+    // reserve
+    {
+        cout << "====  reserve ====" << endl;
+        std::vector<int> vec {1,2,3,4,5};
+
+        vec.reserve(10);
+        
+        for (auto &&i : vec)
+            cout << i << " ";
+        cout << endl;
+        
+        cout << "size : " <<  vec.size() << " capa : " << vec.capacity() << endl;
+    }
+
+    // Use vector like Stack
+    {
+        std::vector<int> stack;
+
+        stack.reserve(10);
+        
+        stack.push_back(0);
+        printStack(stack);
+        stack.push_back(1);
+        printStack(stack);
+        stack.push_back(2);
+        printStack(stack);
+        stack.push_back(3);
+        printStack(stack);
+
+        stack.pop_back();
+        printStack(stack);
+        stack.pop_back();
+        printStack(stack);
+        stack.pop_back();
+        printStack(stack);
+        stack.push_back(50);
+        printStack(stack);
     }
 
     return 0;
