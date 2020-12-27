@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.0)
 
-project(anonymous_class)
+project(nested_types)
 set(CMAKE_CXX_STANDARD 14)
 set(CMAKE_CXX_COMPILER g++)
 set(SOURCES src/main.cpp )
