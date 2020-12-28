@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.0)
 
-project(arithmetic_operator_overloading)
+project(return_value_optimization)
 set(CMAKE_CXX_STANDARD 14)
 set(CMAKE_CXX_COMPILER g++)
 set(SOURCES src/main.cpp )
