@@ -1,3 +1,6 @@
+[![GitHub issues](https://img.shields.io/github/issues/kimsooyoung/TBCppExamples)](https://github.com/kimsooyoung/TBCppExamples/issues) 
+![issue_badge](https://img.shields.io/badge/license-GPLv2-brown)
+
 # TBCppExamples
 
 [인프런 홍정모의 따베씨++](https://www.inflearn.com/course/following-c-plus) 예제 코드들을 정리해 두었습니다.
@@ -7,11 +10,10 @@
 ## Build Example
 
 ```
-cd 1_3_variables
-mkdir build && cd build
-cmake .. && make
+$ cd 1_3_variables
+$ mkdir build && cd build
+$ cmake .. && make
 
 # execute your project
-./<your-project-name>
+$ ./<your-project-name>
 ```
-
