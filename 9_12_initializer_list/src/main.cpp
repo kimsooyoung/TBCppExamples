@@ -18,6 +18,8 @@ public:
     }
 
     IntArray(const IntArray &int_arr){
+        cout << "Copy Constructor Called " << endl;
+        
         m_size = int_arr.m_size;
 
         if(int_arr.m_arr != nullptr){
@@ -47,6 +49,7 @@ public:
     }
     
     IntArray& operator= (const IntArray &arr_in){
+        cout << "Operator = Called " << endl;
 
         if(this == &arr_in)
             return *this;
@@ -84,7 +87,8 @@ int main(){
     // prevent shallow copy;
     {
         IntArray original = {1,2,3,4,5};
-        IntArray copy = original;
+        IntArray copy;
+        copy = original;
 
         cout << "original : " << original << endl;
         cout << "copy : " << copy << endl;

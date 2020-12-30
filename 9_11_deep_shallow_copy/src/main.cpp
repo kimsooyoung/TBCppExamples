@@ -9,6 +9,7 @@ private:
     int   m_length = 0;
 public:
     char *m_data = nullptr;
+
     MyString(const char *source = ""){
         assert(source);
 
@@ -20,20 +21,15 @@ public:
         
         m_data[m_length - 1] = '\0';
     }
+
     MyString(const MyString &source){
         cout << "Copy Constructor Called" << endl;
 
         m_length = source.m_length;
 
-        if(source.m_data != nullptr){
-            m_data = new char [m_length];
-
-            for(int i = 0; i < m_length; i++)
-                m_data[i] = source.m_data[i];
-        }
-        else
-            m_data = nullptr;
+        _init(source.m_data);
     }
+
     MyString& operator= (const MyString &source){
         cout << "Assignment Operator Called" << endl;
 
@@ -44,19 +40,25 @@ public:
 
         m_length = source.m_length;
 
-        if(source.m_data != nullptr){
-            m_data = new char [m_length];
+        _init(source.m_data);
 
-            for(int i = 0; i < m_length; i++)
-                m_data[i] = source.m_data[i];
-        }
-        else
-            m_data = nullptr;
         return *this;
     }
+
     ~MyString(){
         delete[] m_data;
     }
+
+    void _init(const char* arr_in){
+        if (arr_in != nullptr){
+            m_data = new char [m_length];
+
+            for (int i = 0; i < m_length; i++)
+                m_data[i] = arr_in[i];
+        }
+        else
+            m_data = nullptr;
+    } 
 
     char* getString() { return m_data; }
     int   getLen() { return m_length; }
