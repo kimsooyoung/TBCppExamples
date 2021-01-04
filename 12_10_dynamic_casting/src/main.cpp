@@ -45,7 +45,7 @@ int main(){
 
     cout << "======================" << endl;
 
-    // Dynamic Cast return nullptr if I fails
+    // Dynamic Cast return nullptr if cating fails
     {
         Derived2 d_1;
         Base *b = &d_1;
@@ -78,7 +78,7 @@ int main(){
             cout << "Dynamic Cast Failed" << endl;
 
         // Derived2
-        // static cast tries to cast nearest type.
+        // static cast tries to cast to nearest type.
     }
 
     return 0;
