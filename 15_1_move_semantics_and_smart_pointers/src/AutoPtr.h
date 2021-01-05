@@ -23,32 +23,24 @@ public:
 
 // AutoPtr with Move Semantic
 template <typename T>
-class AutoPtrWithMS {
+class AutoPtrWithMS : public AutoPtr<T> {
 public:
-    T *m_ptr = nullptr;
-public:
-    AutoPtrWithMS(T *ptr_in = nullptr) : m_ptr(ptr_in){}
-    
+    AutoPtrWithMS() : AutoPtr<T>() {}
+
+    AutoPtrWithMS(T *ptr_in): AutoPtr<T>(ptr_in) {}
+
     AutoPtrWithMS(AutoPtrWithMS &ptr_in){
-        m_ptr = ptr_in.m_ptr;
+        AutoPtr<T>::m_ptr = ptr_in.m_ptr;
         ptr_in.m_ptr = nullptr;
     }
-    
-    ~AutoPtrWithMS(){
-        if (m_ptr != nullptr) delete m_ptr; 
-    }
 
-    AutoPtrWithMS& operator= (AutoPtrWithMS &ptr_in){
-        if (this == &ptr_in )
+    AutoPtrWithMS& operator= (AutoPtrWithMS &ptr_in) {
+        if (this == &ptr_in)
             return *this;
         
-        delete m_ptr;
-        m_ptr = ptr_in.m_ptr;
+        delete AutoPtr<T>::m_ptr;
+        AutoPtr<T>::m_ptr = ptr_in.m_ptr;
         ptr_in.m_ptr = nullptr;
         return *this;
     }
-
-    T& operator*()  const { return *m_ptr; }
-    T* operator->() const { return m_ptr; }
-    bool isNull()   const { return m_ptr == nullptr; }
 };
