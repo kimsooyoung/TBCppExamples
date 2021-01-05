@@ -1,45 +1,89 @@
 #include <iostream>
+#include <fstream>
+#include <cstring>
 
-template <typename T>
-class A {
-private:
-    T m_val;
-public:
-    A (const T &val_in): m_val(val_in) {}
+// return -1 if it fails
+int findFirstChar (const char *string, char ch){
+    for (auto i = 0; i < std::strlen(string); i++)
+        if (string[i] == ch)
+            return i;
+        
+    return -1; // no match
+}
 
-    // templatize Again
-    // In this example TT is used like casting
-    template <typename TT>
-    void doSomething(){
-        std::cout << typeid(T).name() << " " << typeid(TT).name() << std::endl;
-        std::cout << (TT)m_val << std::endl;
+// Check Division by Zero
+double devide(const int &x_in, const int &y_in, bool &success){
+    if ( y_in == 0 ){
+        success = false;
+        return 0.0;
     }
 
-    template <typename TTT>
-    void doSomethingParam(const TTT &val_in){
-        std::cout << val_in << std::endl;
-    }
+    success = true;
+    return static_cast<double>(x_in) / y_in;
+}
 
-    void print() {
-        std::cout << m_val << std::endl;
-    }
-};
 
-int main(){
 
-    A<int> a(97);
-    
-    // Usage 1
+int main() {
+
+    // check by function output
     {
-        // Casting 97 to char
-        a.doSomething<char>();
+        int result = findFirstChar("Abracatabra",'c');
+
+        if(result)
+            std::cout << "Location of c : " << result << std::endl;
+        else
+            std::cout << "No c " << std::endl;   
     }
 
-    // Usage 2
+    std::cout << "==============================" << std::endl;
+
+    // check by bool flag 
     {
-        // If templatize function has typename param
-        // then It is not necessary to specify the type.
-        a.doSomethingParam(12.3);
+        bool success;
+        int div_result = devide(3, 0, success);
+
+        if(success)
+            std::cout << div_result << std::endl;
+        else
+            std::cout << "Division by Zero" << std::endl;
+    }
+
+    std::cout << "==============================" << std::endl;
+
+    // nullptr check 
+    // ifstream returns nullptr if it fails
+    {
+        std::ifstream input_file("temp.txt");
+        if(!input_file)
+            std::cerr << "Cannot open file" << std::endl;
+    }
+
+    std::cout << "==============================" << std::endl;
+
+    {
+        double x;
+        std::cout << "Type any double number : ";
+        std::cin >> x;
+
+        try{
+            if (x < 0.0) throw std::string("Negative input");
+            
+            std::cout << "You Entered " << x << std::endl;
+        }
+        // catch param type must match throw type
+        // catch(const char * err_str) {
+        //     std::cerr << err_str << '\n';
+        //     // Aborted (core dumped)
+        // }
+        catch(const std::string err_msg){
+            std::cerr << err_msg << '\n';
+        }
+        // There can be many different forms of catch.
+        // But Again, catch param type must match throw type
+        catch(const int err_num){
+            std::cerr << err_num << '\n';
+        }
     }
 
     return 0;
