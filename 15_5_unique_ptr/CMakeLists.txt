@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.0)
 
-project(std_move)
+project(unique_ptr)
 
 include(CTest)
 enable_testing()
