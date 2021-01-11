@@ -183,12 +183,27 @@ void container_adaptor(){
         // But, if you wanna push user-defined type
         // you must implement operator overloadings.
 
-        // TODO:  Person class with operator overloadings
         for (auto i = 0; i < 9; i++){
             cout << prior_q.top() << " ";
             prior_q.pop();
         }
         cout << endl;
+    }
+
+    cout << "==== priority queue with user-defined type ====" << endl;
+
+    {
+        priority_queue<Person> person_pq;
+        person_pq.push(Person("Kim", 25));
+        person_pq.push(Person("Hwang", 56));
+        person_pq.push(Person("Pig", 24));
+        person_pq.push(Person("Kim", 54));
+
+        for (auto i = 0; i < 4; i++)
+        {
+            cout << person_pq.top() << " ";
+            person_pq.pop();
+        }
     }
 }
 
