@@ -1,89 +1,49 @@
 #include <iostream>
-#include <cctype>
-#include <string>
-#include <bitset>
+#include <regex>
 
-using namespace std;
+using namespace std; 
 
-void printStates(const std::ios& stream){
-    cout << boolalpha;
-    cout << "good() : " << stream.good() << endl;
-    cout << "eof() : " << stream.eof() << endl;
-    cout << "fail() : " << stream.fail() << endl;
-    cout << "bad() : " << stream.bad() << endl;
-}
+int main() {
 
-void printCharacterClassification(const char &i){
-    cout << boolalpha;
-    cout << "isalnum : " << bool(std::isalnum(i)) << endl;
-    cout << "isblank : " << bool(std::isblank(i)) << endl;
-    cout << "isdigit : " << bool(std::isdigit(i)) << endl;
-    cout << "islower : " << bool(std::islower(i)) << endl;
-    cout << "isupper : " << bool(std::isupper(i)) << endl;
-}
+    // regex re("\\d+"); // one digit
+    // regex re("[[:digit:]]+"); // same with above
+    // regex re("[[:digit:]]{3}"); // allow only three digits
+    // regex re("[ab]"); // a or b
+    // regex re("[A-Z]+"); // from A to Z
+    // regex re("[A-Z]{1,5}"); // from A to Z, size from 1 to 5
 
-bool isAllDigit(const string &str){
-    bool ok_flag = true;
+    // complex example
+    // regex re("([0-9]+)([-]?)([0-9]{1,4})");
 
-    for (auto &elem : str)
-    {
-        if (!std::isdigit(elem)){
-            ok_flag = false;
-            break;
+    // phone number example
+    // regex re("[01]{3}-\\d{3,4}-\\d{4}");
+
+    // email example
+    regex re("(\\w+)@(\\w+).([a-z]+)(.?)([a-z]*)");
+
+    string str;
+
+    while(1){
+        getline(cin, str);
+
+        if (std::regex_match(str, re))
+            cout << "Match" << endl;
+        else
+            cout << "No match" << endl;
+
+        // auto matches
+        {
+            auto begin = std::sregex_iterator(str.begin(), str.end(), re);
+            auto end = std::sregex_iterator();
+            
+            // traverse str, and recommend match case
+            for (auto itr = begin; itr != end; itr++)
+            {
+                std::smatch match = *itr;
+                cout << match.str() << " ";
+            }
+            cout << endl;
         }
-    }
-
-    return ok_flag;
-}
-
-bool classifyCharacters(const string &str){
-
-    for (auto &elem : str)
-    {
-        cout << "isblank : " << bool(std::isblank(elem)) << endl;
-        cout << "isdigit : " << bool(std::isdigit(elem)) << endl;
-        cout << "isalpha : " << bool(std::isalpha(elem)) << endl;
-        cout << endl;
-    }
-}
-
-
-int main(){
-
-    int i;
-    char c;
-
-    while (1){
-        // stream status flag example
-        // cin >> i;
-        // printStates(cin);
-
-        // character check example
-        // cin >> c;
-        // printCharacterClassification(c);
-        
-        //  character check example with bitmask
-        // cout << boolalpha;
-        // cout << std::bitset<8>(cin.rdstate()) << endl;
-        // cout << std::bitset<8>(std::istream::goodbit) << endl;
-        // cout << std::bitset<8>(std::istream::failbit) << endl;
-        // cout << !bool((cin.rdstate() & std::istream::failbit ) != 0 ) << endl;
-
-        // All digit check example
-        // string str;
-        // cin >> str;
-
-        // cout << boolalpha;
-        // cout << isAllDigit(str) << endl;
-
-
-        // string str;
-        // cin >> str;
-
-        // classifyCharacters(str);
-
-        // cin.clear();
-        // cin.ignore(32767,'\n');
     }
 
     return 0;
