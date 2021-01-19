@@ -1,3 +1,4 @@
+
 #include <mutex>
 #include <chrono>
 #include <vector>
@@ -6,6 +7,7 @@
 #include <numeric>
 #include <random>
 #include <atomic>
+
 
 using namespace std;
 
@@ -24,16 +26,36 @@ void calcProductMtx(const vector<int>& v0, const vector<int>& v1,
     const unsigned &start, const unsigned &end, unsigned long long &sum){
     
     for (unsigned i = start; i < end; i++){
-        // mtx.lock();
-        // sum += v0[i] * v1[i];
-        // mtx.unlock();
+        mtx.lock();
+        sum += v0[i] * v1[i];
+        mtx.unlock();
+    }
+}
 
+void calcProductLockGuard(const vector<int>& v0, const vector<int>& v1,
+    const unsigned &start, const unsigned &end, unsigned long long &sum){
+    
+    for (unsigned i = start; i < end; i++){
         lock_guard<mutex> lock(mtx);
         sum += v0[i] * v1[i];
 
-        // scoped_lock lock(mtx); // c++ 17
-        // sum += v0[i] * v1[i];
+    }
+}
 
+void calcProductScopedGuard(const vector<int>& v0, const vector<int>& v1,
+    const unsigned &start, const unsigned &end, unsigned long long &sum){
+    
+    for (unsigned i = start; i < end; i++){
+        scoped_lock lock(mtx); // c++ 17
+        sum += v0[i] * v1[i];
+    }
+}
+
+void calcProductAtomic(const vector<int>& v0, const vector<int>& v1,
+    const unsigned &start, const unsigned &end, atomic<unsigned long long> &sum){
+    
+    for (unsigned i = start; i < end; i++){
+        sum += v0[i] * v1[i];
     }
 }
 
@@ -100,7 +122,8 @@ int main(){
         const auto tick = std::chrono::steady_clock::now();
         
         // strange :( If I don't reset sum to 0 it is summazed agin
-        unsigned long long sum = 0;
+        // MacOS, It doesn't matter ://
+        unsigned long long sum;
         const unsigned num_per_thread = data_size / cpu_num;
 
         vector<std::thread> t_vec;
@@ -108,7 +131,8 @@ int main(){
         t_vec.resize(cpu_num);
 
         for( auto i = 0; i < cpu_num; i++){
-            t_vec[i] = thread(calcProductMtx, ref(v0), ref(v1), i * num_per_thread, (i + 1) * num_per_thread, ref(sum));
+            // t_vec[i] = thread(calcProductMtx, ref(v0), ref(v1), i * num_per_thread, (i + 1) * num_per_thread, ref(sum));
+            t_vec[i] = thread(calcProductAtomic, ref(v0), ref(v1), i * num_per_thread, (i + 1) * num_per_thread, ref(sum));
         }
 
         for (auto &elem : t_vec)
