@@ -5,20 +5,21 @@
 
 using boost::asio::ip::tcp;
 
-int main(){
-
+int main()
+{
     try
     {
         boost::asio::io_service io_service;
 
-        // make endpoint with tcp version4 
+        // make endpoint with tcp version4
         // this endpoint will use port number 13
         tcp::endpoint endpoint(tcp::v4(), 13);
         tcp::acceptor acceptor(io_service, endpoint);
 
         std::cout << "Server Started" << std::endl;
 
-        for(;;){
+        for (;;)
+        {
             std::string message_to_send = "Hello From Server";
 
             boost::asio::ip::tcp::iostream stream;
@@ -29,27 +30,25 @@ int main(){
 
             std::cout << "check 2" << std::endl;
 
-            if(!ec){
-                for(;;){
-                    std::string line;
-                    std::getline(stream, line);
-                    if(line != "")                    
-                        std::cout << line << std::endl;
+            if (!ec)
+            {
+                std::string line;
+                std::getline(stream, line);
+                if (line != "")
+                    std::cout << line << std::endl;
 
-                    std::cout << ">> ";
-                    getline(std::cin, line);
+                // std::cout << ">> ";
+                // getline(std::cin, message_to_send);
 
-                    stream << message_to_send;
-                    stream << std::endl;
-                }
+                stream << message_to_send;
+                stream << std::endl;
             }
         }
     }
-    catch(const std::exception& e)
+    catch (const std::exception &e)
     {
         std::cerr << e.what() << '\n';
     }
-    
 
     return 0;
 }
