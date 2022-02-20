@@ -11,6 +11,7 @@ using std::shared_ptr;
 class Person {
 private:
     string m_name;
+    // std::shared_ptr<Person> m_partner;
     std::weak_ptr<Person> m_partner;
 public:
     Person(const string &name_in = " "): m_name(name_in) {

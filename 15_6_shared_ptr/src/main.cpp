@@ -59,14 +59,13 @@ int main(){
 
         auto spr = make_shared<Resource>(5);
         spr->setAll(1);
+        spr->print();
 
         {
             // copy easily with copy assignment
             // and deduction
             auto spr2 = spr;
-
             spr2->setAll(2);
-            spr->print();
         }
 
         spr->print();

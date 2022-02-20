@@ -22,6 +22,9 @@ public:
         std::cout << "AutoPtr copy constructor" << std::endl;
 
         m_ptr = new T;
+
+        // Deep Copy
+        // This line will call copy assignment operator from Resource class
         *m_ptr = *ptr_in.m_ptr;
     }
 
@@ -37,6 +40,7 @@ public:
         if (m_ptr != nullptr)
             delete m_ptr;
         
+        // Deep copy
         m_ptr = new T;
         *m_ptr = *ptr_in.m_ptr;
 
@@ -62,9 +66,13 @@ public:
         if(m_ptr != nullptr)
             delete m_ptr;
         
+        // Shallow Copy
         m_ptr = ptr_in.m_ptr;
         ptr_in.m_ptr = nullptr;
 
         return *this;
     }
+
+    T& operator*() const { return *m_ptr; }
+    T* operator->() const { return m_ptr; }
 };

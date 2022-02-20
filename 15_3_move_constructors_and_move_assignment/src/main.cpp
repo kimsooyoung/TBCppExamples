@@ -19,10 +19,10 @@ int main(){
     Timer timer;
 
     {
-        // AutoPtr<Resource> main_res;
-        // main_res = generateResource();
+        AutoPtr<Resource> main_res;
+        main_res = generateResource();
 
-        AutoPtr<Resource> res(new Resource(1000000));
+        // AutoPtr<Resource> res(new Resource(1000000));
 
 
         // Resource resource(100);
