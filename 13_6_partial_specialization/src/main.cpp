@@ -1,30 +1,42 @@
-#include "Storage.h"
+#include <string.h>
+#include <iostream>
 
-template <typename T>
-class A {
-private:    
-    T m_val;
+
+template <typename T, int size>
+class StaticArray_BASE
+{
+private:
+    T m_array[size];
 public:
-    A(const T &val_in): m_val(val_in) {}
+    T* getArray() { return m_array; }
 
-    void doSomething(){
-        std::cout << typeid(T).name() << std::endl;
+    T& operator[](int index)
+    {
+        return m_array[index];
     }
 
-    void test(){
-        std::cout << "test" << std::endl;
+    void print()
+    {
+        for (int i = 0; i < size; i++)
+            std::cout << (*this)[i] << ' ';
+        std::cout << std::endl;
     }
 };
 
-template <>
-class A <char> {
-private:
-    char m_val;
-public:
-    A(const char &val_in): m_val(val_in) {}
+template <typename T, int size>
+class StaticArray: public StaticArray_BASE<T, size>
+{
+};
 
-    void doSomething(){
-        std::cout << "Char Specialization" << std::endl;
+template <int size>
+class StaticArray<char, size>: public StaticArray_BASE<char, size>
+{
+public:
+    void print()
+    {
+        for (int i = 0; i < size; i++)
+            std::cout << (*this)[i] << ' ';
+        std::cout << std::endl;
     }
 };
 
@@ -32,57 +44,22 @@ int main(){
 
     using namespace std;
 
-    // class template specialization example
-    // gave exception to char case
     {
-        A<int> i(1);
-        A<double> d(1.1);
-        A<char> c('c');
+        StaticArray<int, 4> int4;
+        int4[0] = 1;
+        int4[1] = 2;
+        int4[2] = 3;
+        int4[3] = 4;
 
-        i.doSomething();
-        d.doSomething();
-        c.doSomething();
+        int4.print();
 
-        i.test();
-        d.test();
-        
-        // temple specialization is differ from inheritance
-        // error
-        // c.test();
-    }
+        StaticArray<char, 14> char14;
+        char14[0] = 'H';
+        char14[0] = 'e';
+        // ...
+        strcpy(char14.getArray(), "Hello, World");
 
-    // from c++17 class braket <> can be omitted
-    // if constructor is defined properly
-    {
-        // check CMakeLists.txt and C++ version
-        A i(1);
-        A d(1.1);
-        A c('c');
-    }
-
-    // class specialization 
-    // useful example, Storage8 class
-    {
-        Storage8<int> store;
-
-        for (auto i = 0; i < 8; i++)
-            store.set(i, i);
-        
-        for (auto i = 0; i < 8; i++)
-            cout << store.get(i) << " ";
-        cout << endl; 
-        
-        Storage8<bool> store_b;
-
-        for (auto i = 0; i < 8; i++)
-            store_b.set(i, true);
-
-        store_b.set(6, false);
-        store_b.set(2, false);
-        
-        for (auto i = 0; i < 8; i++)
-            cout << store_b.get(i) << " ";
-        cout << endl; 
+        char14.print();
     }
 
     return 0;
