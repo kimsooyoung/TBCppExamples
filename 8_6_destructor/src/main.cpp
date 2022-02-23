@@ -6,10 +6,10 @@ class Simple{
     int m_id;
 public:
     Simple(const int &id_in):m_id(id_in){
-        cout << "Constructor!" << endl;
+        cout << "Constructor! " << m_id << endl;
     }
     ~Simple(){
-        cout << "Destructor!" << endl;
+        cout << "Destructor! " << m_id << endl;
     }
 };
 

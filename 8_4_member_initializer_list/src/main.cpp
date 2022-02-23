@@ -24,7 +24,8 @@ public:
     void print(){
         cout << m_i << " " << m_d << " " << m_c << " " << endl;
         for (auto &&i : m_arr)
-            cout << i << endl;        
+            cout << i << ',';
+        cout << endl;
     }
 };
 

@@ -67,8 +67,15 @@ int main(){
         Fraction frac;
         frac.print();
 
-        Fraction frac_2 (1,2);
+        Fraction frac_2(1,2);
         frac_2.print();
+
+        Fraction frac_3{10, 20};
+        frac_3.print();
+
+        // 이렇게도 할 수 있지만 권장하지는 않음. 쓸데없는 생성 후 연산이기에
+        Fraction frac_4 = Fraction{10, 20};
+        frac_4.print();
 
         // Uniform initialization doesn't allows type inversion
         // Fraction invalid_frac_2 { 1.2, 2 };
