@@ -21,7 +21,10 @@ public:
     int  getVal() const { return m_val; }
     
     // function overroding with const expression
-    string& getStr() { return m_str; }
+    string& getStr() { 
+        cout << "non const getStr" << endl;
+        return m_str;
+    }
     const string& getStr() const { 
         cout << "const getStr" << endl;
         return m_str; 
@@ -36,7 +39,7 @@ public:
 // }
 
 // in order to prevent copy, use reference 
-void printSth(const Something &st){
+void printSth(const Something &st) {
     cout << "Const printSth" << endl;
     cout << "&st : " << &st << endl;
     cout << "st.m_val : " << st.m_val << endl;
