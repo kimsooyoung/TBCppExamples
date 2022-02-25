@@ -14,6 +14,8 @@ public:
         STRAWBERRY,
         KIWI,
     };
+    class InnerClass {}; 
+    struct InnerStruct {};
 
 private:
     FruitType m_type;
