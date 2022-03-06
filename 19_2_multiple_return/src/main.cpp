@@ -27,7 +27,7 @@ int main(){
     {
         auto profile = getProfile();
 
-        cout << get<0>(profile) << " " << get<1>(profile) << endl;
+        cout << std::get<0>(profile) << " " << std::get<1>(profile) << endl;
     }
 
     // modern approach
