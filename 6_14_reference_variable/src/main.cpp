@@ -29,18 +29,22 @@ int main(){
     // Reference - Basic Usage
     {
         int val = 3;
-        int *ptr_val = &val;
+        int *ptr_val = nullptr;
+        ptr_val = &val;
+
         int &ref_val = val;
 
-        cout << "*ptr_val : " << *ptr_val << endl;
-        cout << "ref_val : " << ref_val << endl;
+        cout << "&val : " << &val << endl;
+        cout << "&ref_val : " << &ref_val << endl;
+        cout << "ptr_val : " << ptr_val << endl;
+        cout << "&ptr_val : " << &ptr_val << endl;
     }
 
     // Caution, Reference Must be initialized
     {
         int val = 5;
         // int &ref_val;
-        int &ref_val = val;
+         
     } 
 
     // Const and Reference
