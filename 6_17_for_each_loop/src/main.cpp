@@ -10,6 +10,12 @@ int main(){
     {
         int fibonacci[] = { 0,1,1,2,3,5,8,13,21 };
 
+        for(int number : fibonacci)
+            number = 10;
+        for(int number : fibonacci)
+            std::cout << number << " ";
+        std::cout << std::endl;
+        
         for (auto &i : fibonacci)
             i++;
         
