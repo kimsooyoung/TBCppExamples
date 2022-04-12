@@ -1,4 +1,5 @@
 #include "Calc.h"
+#include "Date.h"
 
 int main(){
     
@@ -9,6 +10,12 @@ int main(){
 
         // or use like this
         Calc(10).add(2).div(3).mul(10).sub(4).printNum();
+    }
+
+    {
+        Calc cal(0);
+
+        sum(cal, 10);
     }
 
     return 0;

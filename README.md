@@ -1,4 +1,4 @@
-[![GitHub issues](https://img.shields.io/github/issues/kimsooyoung/TBCppExamples)](https://github.com/kimsooyoung/TBCppExamples/issues) 
+[![GitHub issues](https://img.shields.io/github/issues/kimsooyoung/TBCppExamples)](https://github.com/kimsooyoung/TBCppExamples/issues)
 ![issue_badge](https://img.shields.io/badge/license-GPLv2-brown)
 
 # TBCppExamples

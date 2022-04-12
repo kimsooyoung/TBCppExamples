@@ -1,5 +1,8 @@
 #pragma once
- 
+
+#include <iostream>
+
+class Calc;
 class Date
 {
 private:
@@ -16,3 +19,5 @@ public:
     int getMonth() { return m_month; }
     int getDay()  { return m_day; }
 };
+
+void sum(Calc& calc, const int &val);
