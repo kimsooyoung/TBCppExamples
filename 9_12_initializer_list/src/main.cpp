@@ -1,98 +1,99 @@
-#include <iostream> 
 #include <initializer_list>
+#include <iostream>
 
 using namespace std;
 
-class IntArray{ 
+class IntArray {
 private:
-    int m_size;
-    int *m_arr;
+  int m_size;
+  int *m_arr;
+
 public:
-    IntArray() {
-        m_size = 1;
-        m_arr = new int [m_size];
+  IntArray() {
+    m_size = 1;
+    m_arr = new int[m_size];
+  }
+
+  IntArray(const int &size_in) : m_size(size_in) { m_arr = new int[size_in]; }
+
+  IntArray(const IntArray &int_arr) {
+    cout << "Copy Constructor Called " << endl;
+
+    m_size = int_arr.m_size;
+
+    if (int_arr.m_arr != nullptr) {
+      m_arr = new int[m_size];
+
+      for (int i = 0; i < m_size; i++)
+        m_arr[i] = int_arr.m_arr[i];
+    } else
+      m_arr = nullptr;
+  }
+
+  IntArray(const std::initializer_list<int> &list) : IntArray(list.size()) {
+    int count = 0;
+    for (auto &elem : list) {
+      m_arr[count] = elem;
+      count++;
     }
 
-    IntArray(const int& size_in): m_size(size_in) {
-        m_arr = new int [size_in];
-    }
+    // for(unsigned int count; count < list.size(); count++)
+    //     m_arr[count] = list[count];
+    // => Error! initialize_list doesn't support [] operator
+  }
 
-    IntArray(const IntArray &int_arr){
-        cout << "Copy Constructor Called " << endl;
-        
-        m_size = int_arr.m_size;
+  ~IntArray() { delete[] m_arr; }
 
-        if(int_arr.m_arr != nullptr){
-            m_arr = new int [m_size];
+  friend std::ostream &operator<<(std::ostream &out, const IntArray &int_arr) {
+    for (auto i = 0; i < int_arr.m_size; i++)
+      out << int_arr.m_arr[i] << " ";
+    return out;
+  }
 
-            for(int i = 0; i < m_size; i++)
-                m_arr[i] = int_arr.m_arr[i];
-        }
-        else
-            m_arr = nullptr;
-    }
-    
-    IntArray(const std::initializer_list<int> &list):IntArray(list.size()){
-        int count = 0;
-        for (auto &elem : list){
-            m_arr[count] = elem;
-            count++;
-        }
-    }
-    
-    ~IntArray(){ delete[] m_arr; }
+  IntArray &operator=(const IntArray &arr_in) {
+    cout << "Operator = Called " << endl;
 
-    friend std::ostream& operator<< (std::ostream& out, const IntArray &int_arr){
-        for (auto i = 0; i < int_arr.m_size; i++)
-            out << int_arr.m_arr[i] << " ";
-        return out;
-    }
-    
-    IntArray& operator= (const IntArray &arr_in){
-        cout << "Operator = Called " << endl;
+    if (this == &arr_in)
+      return *this;
 
-        if(this == &arr_in)
-            return *this;
+    delete[] m_arr;
 
-        delete[] m_arr;
-        
-        m_size = arr_in.m_size;
+    m_size = arr_in.m_size;
 
-        if (arr_in.m_arr != nullptr){
-            m_arr = new int [arr_in.m_size];
+    if (arr_in.m_arr != nullptr) {
+      m_arr = new int[arr_in.m_size];
 
-            for (auto i = 0; i < arr_in.m_size; i++)
-                m_arr[i] = arr_in.m_arr[i];
-        }
-        else
-            m_arr = nullptr;
+      for (auto i = 0; i < arr_in.m_size; i++)
+        m_arr[i] = arr_in.m_arr[i];
+    } else
+      m_arr = nullptr;
 
-        return *this;
-    }
+    return *this;
+  }
 };
 
-int main(){
+int main() {
 
-    // initializer list - basic usage 
-    {
-        int my_arr[5] = {1,2,3,4,5};
+  // initializer list - basic usage
+  {
+    int my_arr[5] = {1, 2, 3, 4, 5};
 
-        // type of li is an initializer list
-        auto li = {1,2,3};
-        
-        IntArray int_arr = {1,2,3,4,5};
-        cout << "int_arr: " <<  int_arr << endl;
-    }
+    // type of li is an initializer list
+    auto li = {1, 2, 3};
 
-    // prevent shallow copy;
-    {
-        IntArray original = {1,2,3,4,5};
-        IntArray copy;
-        copy = original;
+    IntArray int_arr = {1, 2, 3, 4, 5};
+    cout << "int_arr: " << int_arr << endl;
+  }
 
-        cout << "original : " << original << endl;
-        cout << "copy : " << copy << endl;
-    }
+  // prevent shallow copy;
+  {
+    IntArray original = {1, 2, 3, 4, 5};
+    IntArray copy;
+    copy = original;
 
-    return 0;
+    cout << "original : " << original << endl;
+    cout << "copy : " << copy << endl;
+  }
+
+  return 0;
 }
