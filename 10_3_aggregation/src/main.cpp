@@ -16,13 +16,13 @@ int main(){
     lec1.registerStudent(dash);
     lec1.registerStudent(violet);
 
-    Lecture lec2("Computational Thinking");
-    lec2.assignTeacher(good);
-
-    lec2.registerStudent(jj);
-
     // test
     {  
+        Lecture lec2("Computational Thinking");
+        lec2.assignTeacher(good);
+
+        lec2.registerStudent(jj);
+        
         std::cout << lec1 << std::endl;
         std::cout << lec2 << std::endl;
 

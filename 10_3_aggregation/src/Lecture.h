@@ -23,6 +23,7 @@ public:
     }
 
     void study(){
+        // 여기서 & 안붙이면 업데이트가 안되는 점에 유의한다.
         for (auto &elem : m_students)
             elem->setIntel(elem->getIntel() + 1);
     }
