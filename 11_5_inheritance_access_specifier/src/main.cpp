@@ -18,6 +18,15 @@ public:
     }
 };
 
+class GrandChild : public PrivateDerived{
+public:
+    GrandChild()
+    {
+        // PrivateDerived::m_public = 123;
+        // PrivateDerived::m_protected = 123;
+    }
+}
+
 class ProtectedDerived : protected Base {
 public:
     ProtectedDerived(){
@@ -37,6 +46,11 @@ public:
 };
 
 int main(){
+
+    Base base;
+    // base.m_private;
+    // base.m_protected;
+    base.m_public;
 
     PrivateDerived pri_d;
     // pri_d.m_private;

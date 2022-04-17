@@ -20,6 +20,7 @@ private:
 public:
     Child(const int &i_in=0, const double &d_in=0.1): Base(i_in), m_d(d_in) {}
     void print(){
+        // print(); => 무한 반복
         Base::print();
         std::cout << " / m_d : " << m_d << std::endl;
     }
