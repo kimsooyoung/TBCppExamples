@@ -90,3 +90,92 @@ Woof
 부모 클래스인 Animal 타입으로 모두 묶어버린 뒤, 한번에 반복 실행시키고 있다.
 
 12.2 가상 함수와 다형성
+
+A => B => C => D로 이어지는 4계층 상속을 구현하였다.
+
+```
+class A {
+public:
+    void print(){
+        std::cout << "A" << std::endl;
+    }
+};
+
+class B : public A {
+public:
+    ...
+        std::cout << "B" << std::endl;
+};
+
+class C : public B {
+public:
+    ...
+        std::cout << "C" << std::endl;
+};
+
+class D : public C {
+public:
+    ...
+        std::cout << "D" << std::endl;
+};
+
+A &ref_a = b;
+ref_a.print();
+
+ref_a = c;
+ref_a.print();
+
+B &ref_b = d;
+ref_b.print();
+
+# 실행 결과
+A
+A
+B
+```
+
+부모 클래스로 캐스팅하면 당연하게도 부모 클래스의 print가 호출된다.
+
+이제 print 함수를 virtual로 변경해보자.
+가장 상위 클래스인 A에만 virtual을 붙여도, 모든 하위 클래스들은 자동적으로 virtual이 적용된다.
+
+```
+class VirtualA {
+public:
+    virtual void print(){
+        std::cout << "VirtualA" << std::endl;
+    }
+};
+
+A &ref_a = b;
+ref_a.print();
+
+A &ref_a = c;
+ref_a.print();
+
+B &ref_b = d;
+ref_b.print();
+
+# 실행 결과
+B
+C
+D
+```
+
+=> 여기서 주의해야 할 점으로 레퍼런스로 받는 것이 아닌 단순 대입을 하게 되면 다형성이 깨져버린다.
+
+```
+A ref_a = b;
+ref_a.print();
+
+A ref_a = c;
+ref_a.print();
+
+B ref_b = d;
+ref_b.print();
+
+# 실행 결과
+B
+C
+D
+```
