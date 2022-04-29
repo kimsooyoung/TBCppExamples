@@ -22,6 +22,9 @@ public:
 
 int main(){
 
+    {
+        Child child(3);
+    }
     
     // Destructor Example with polymorphism
     // See virtual keyword in Base Class

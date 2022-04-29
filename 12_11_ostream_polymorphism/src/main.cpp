@@ -29,8 +29,10 @@ int main() {
         Base b;
         Derived d;
 
+        Base &ref_base = d;
+
         cout << b << endl;
-        cout << d << endl;
+        cout << ref_base << endl;
     }
 
     return 0;
