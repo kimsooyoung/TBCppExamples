@@ -1,44 +1,34 @@
+#include <array>
+#include <cassert>
 #include <iostream>
 #include <string>
 
-class Son {
+class Base {
 private:
-    double score_;
-    std::string name_;
+  int private_int = 0;
+
+protected:
+  int protected_int = 0;
+
 public:
-    Son(const std::string name= "Swimming"){
-        name_ = name;
-        score_ = 0;
-    }
-
-    void setScore(const double& score){
-        score_ = score;
-    }
-
-    friend class Mother;
+  int public_int = 0;
 };
 
-class Mother {
-private:
-    std::string name_;
-public:
-    Mother(const std::string& name= "Mrs. Whang"){
-        name_ = name;
-    }
-
-    void viewSonScore(const Son& son){
-        printf("My Son got %f\n", son.score_);
-    }
+class Derived : private Base {
+  void printInstance() {
+    // std::cout << private_int << std::endl;
+    std::cout << protected_int << std::endl;
+    std::cout << public_int << std::endl;
+  }
 };
 
+int main(int argv, char **argc) {
 
-int main(){
+  Derived dev;
 
-    Son son1;
-    son1.setScore(70.5);
-    Mother mother1;
+  // std::cout << dev.public_int << std::endl;
+  // std::cout << dev.protected_int << std::endl;
+  // std::cout << dev.private_int << std::endl;
 
-    mother1.viewSonScore(son1);
-
-    return 0;
+  return 0;
 }
