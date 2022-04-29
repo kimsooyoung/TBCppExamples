@@ -9,6 +9,8 @@ int main(){
         b.print();
     }
 
+    std::cout << "==============================" << std::endl; 
+
     // Covariant Return Type Example
     {
         CovB b;

@@ -5,7 +5,9 @@ using namespace std;
 class PoweredDevice {
 public:
     int m_i;
-    PoweredDevice(const int i_in=0): m_i(i_in) {}
+    PoweredDevice(const int i_in=0): m_i(i_in) {
+        std::cout << "PoweredDevice" << std::endl;
+    }
 };
 
 class Scanner : virtual public PoweredDevice {
@@ -22,7 +24,7 @@ public:
     }
 };
 
-class Copier  : public Scanner, public Printer {
+class Copier : public Scanner, public Printer {
 public:
     Copier(const int &scanner, const int &printer, const int &i_in): Scanner(scanner, i_in), Printer(printer, i_in){
         cout << "Copier" << endl;
@@ -32,7 +34,6 @@ public:
 int main() {
 
     Copier copy(1,2,3);
-
 
     // virtual public inheritance 
     // can prevent diamond inheritance problem
