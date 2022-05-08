@@ -1,34 +1,34 @@
-#include <array>
-#include <cassert>
 #include <iostream>
-#include <string>
 
-class Base {
+class Animal{
 private:
-  int private_int = 0;
-
-protected:
-  int protected_int = 0;
-
+  int age;
 public:
-  int public_int = 0;
-};
-
-class Derived : private Base {
-  void printInstance() {
-    // std::cout << private_int << std::endl;
-    std::cout << protected_int << std::endl;
-    std::cout << public_int << std::endl;
+  virtual void speak(){
+    std::cout << "???" << std::endl;
   }
 };
 
-int main(int argv, char **argc) {
+class Cow : public Animal{
+public:
+  void speak() override {
+    std::cout << "Mooo" << std::endl;
+  }
+};
 
-  Derived dev;
+class Cat : public Animal{
+public:
+  void speak() override {
+    std::cout << "Meow" << std::endl;
+  }
+};
 
-  // std::cout << dev.public_int << std::endl;
-  // std::cout << dev.protected_int << std::endl;
-  // std::cout << dev.private_int << std::endl;
+int main(){
+
+  Cow cow;
+  Animal& animal = cow;
+
+  animal.speak();
 
   return 0;
 }
