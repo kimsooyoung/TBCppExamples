@@ -17,6 +17,7 @@ int main() {
 
   // task-based parallelism
   {
+    // std::future<int>
     auto fut = async([]() { return 1 + 2; });
 
     cout << fut.get() << endl;
