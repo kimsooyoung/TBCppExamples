@@ -58,47 +58,114 @@ int main(int argc, char** argv){
 
     }
 
+    // example1) Data: 7F 00 00 00 5B 6E 7F 00  
     {
-        // Data: C3 FF FF FF 7C 42 C3 FF 
-        // Data: 7F 00 00 00 5B 6E 7F 00 
+        unsigned char motor_encoder_byte[8];
 
-        unsigned char motor_cycle_byte[4];
-        unsigned char motor_encoder_byte[2];
+        motor_encoder_byte[0] = 0x7F; 
+        motor_encoder_byte[1] = 0x00;
+        motor_encoder_byte[2] = 0x00; 
+        motor_encoder_byte[3] = 0x00;
 
-        motor_cycle_byte[0] = 0x7F; motor_cycle_byte[1] = 0x00;
-        motor_cycle_byte[2] = 0x00; motor_cycle_byte[3] = 0x00;
+        motor_encoder_byte[4] = 0x5B;
+        motor_encoder_byte[5] = 0x6E;
+        motor_encoder_byte[6] = 0x7F;
+        motor_encoder_byte[7] = 0x00;
 
-        motor_encoder_byte[0] = 0x5B; motor_encoder_byte[1] = 0x6E;
+        // 실제로는 겹치는 부분이 있으므로 유의미한 6바이트만 사용
+        unsigned char encoder_data[6];
 
-        unsigned char motor_cycle_byte2[4];
-        unsigned char motor_encoder_byte2[2];
+        encoder_data[0] = motor_encoder_byte[4];
+        encoder_data[1] = motor_encoder_byte[5];
+        encoder_data[2] = motor_encoder_byte[6];
+        encoder_data[3] = motor_encoder_byte[7];
 
-        motor_cycle_byte2[0] = 0xC3; motor_cycle_byte2[1] = 0xFF;
-        motor_cycle_byte2[2] = 0xFF; motor_cycle_byte2[3] = 0xFF;
+        encoder_data[4] = motor_encoder_byte[2];
+        encoder_data[5] = motor_encoder_byte[3];
 
-        motor_encoder_byte2[0] = 0x7C; motor_encoder_byte2[1] = 0x42;
-
-        int motor_cycle, motor_cycle2;
-        int16_t motor1_encoder, motor2_encoder;
+        // decimal value
+        unsigned int encoder_val_dec;
         
-        std::memcpy(&motor_cycle, motor_cycle_byte, sizeof(int));
-        std::memcpy(&motor_cycle2, motor_cycle_byte2, sizeof(int));
-
-        std::memcpy(&motor1_encoder, motor_encoder_byte, sizeof(int16_t));
-        std::memcpy(&motor2_encoder, motor_encoder_byte2, sizeof(int16_t));
+        std::memcpy(&encoder_val_dec, encoder_data, sizeof(int));
 
         std::cout << std::endl;
-        std::cout << "motor_cycle " << std::hex << motor_cycle << '\n';
-        std::cout << "motor_cycle " << std::dec << motor_cycle << '\n';
-        std::cout << "motor1_encoder " << std::hex << motor1_encoder << '\n';
-        std::cout << "motor1_encoder " << std::dec << motor1_encoder << '\n';
-    
-        std::cout << "motor_cycle2 " << std::hex << motor_cycle2 << '\n';
-        std::cout << "motor_cycle2 " << std::dec << motor_cycle2 << '\n';
-        std::cout << "motor2_encoder " << std::hex << motor2_encoder << '\n';
-        std::cout << "motor2_encoder " << std::dec << motor2_encoder << '\n';
+        std::cout << "[hex] encoder_val_dec " << std::hex << encoder_val_dec << '\n';
+        std::cout << "[dec] encoder_val_dec " << std::dec << encoder_val_dec << '\n';
     }
 
+    // example1) Data: C3 FF FF FF 7C 42 C3 FF 
+    {
+        unsigned char motor_encoder_byte[8];
+
+        motor_encoder_byte[0] = 0xC3; 
+        motor_encoder_byte[1] = 0xFF;
+        motor_encoder_byte[2] = 0xFF;
+        motor_encoder_byte[3] = 0xFF;
+
+        motor_encoder_byte[4] = 0x7C;
+        motor_encoder_byte[5] = 0x42;
+        motor_encoder_byte[6] = 0xC3;
+        motor_encoder_byte[7] = 0xFF;
+
+        // 실제로는 겹치는 부분이 있으므로 유의미한 6바이트만 사용
+        unsigned char encoder_data[6];
+
+        encoder_data[0] = motor_encoder_byte[4];
+        encoder_data[1] = motor_encoder_byte[5];
+        encoder_data[2] = motor_encoder_byte[6];
+        encoder_data[3] = motor_encoder_byte[7];
+
+        encoder_data[4] = motor_encoder_byte[2];
+        encoder_data[5] = motor_encoder_byte[3];
+
+        // decimal value
+        unsigned int encoder_val_dec;
+        
+        std::memcpy(&encoder_val_dec, encoder_data, sizeof(int));
+
+        std::cout << std::endl;
+        std::cout << "[hex] encoder_val_dec " << std::hex << encoder_val_dec << '\n';
+        std::cout << "[dec] encoder_val_dec " << std::dec << encoder_val_dec << '\n';
+    }
+
+    // 0x9b 0xff 0xff 0xff 0x05 0x16 0x9b 0xff => 4288353797
+    // 0x97 0xff 0xff 0xff 0xe4 0xa6 0x97 0xff => 4288128740
+    // 0x92 0xff 0xff 0xff 0x3a 0x85 0x92 0xff => 4287792442
+    // 0x8b 0xff 0xff 0xff 0xe6 0x80 0x8b 0xff => 4287332582
+    // 1 cycle => 1,300,000
+    {
+        unsigned char motor_encoder_byte[8];
+
+        motor_encoder_byte[0] = 0x8B;
+        motor_encoder_byte[1] = 0xFF;
+        motor_encoder_byte[2] = 0xFF;
+        motor_encoder_byte[3] = 0xFF;
+
+        motor_encoder_byte[4] = 0xE6;
+        motor_encoder_byte[5] = 0x80;
+        motor_encoder_byte[6] = 0x8B;
+        motor_encoder_byte[7] = 0xFF;
+
+        // 실제로는 겹치는 부분이 있으므로 유의미한 6바이트만 사용
+        unsigned char encoder_data[6];
+
+        encoder_data[0] = motor_encoder_byte[4];
+        encoder_data[1] = motor_encoder_byte[5];
+        encoder_data[2] = motor_encoder_byte[6];
+        encoder_data[3] = motor_encoder_byte[7];
+
+        encoder_data[4] = motor_encoder_byte[2];
+        encoder_data[5] = motor_encoder_byte[3];
+
+        // decimal value
+        unsigned int encoder_val_dec;
+        
+        std::memcpy(&encoder_val_dec, encoder_data, sizeof(int));
+
+        std::cout << std::endl;
+        std::cout << "[hex] encoder_val_dec " << std::hex << encoder_val_dec << '\n';
+        std::cout << "[dec] encoder_val_dec " << std::dec << encoder_val_dec << '\n';
+    }
 
 
     return 0;
